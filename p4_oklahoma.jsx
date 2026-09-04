@@ -1,4 +1,4 @@
-// CoverageGuard IQ — Part 4: Submission Gateway — Maryland
+// CoverageGuard IQ — Submission Gateway — Oklahoma
 // Architect build — CC deploys only
 
 import { useState, useEffect, useRef } from "react";
@@ -116,7 +116,7 @@ const ROSA_CASE = {
   route: {
     tier: "L2",
     label: "L2 — Navigator-assisted portal",
-    why: "Navigator holds certified assister credential and beneficiary authorization is verified. No public API available for Maryland. Consumer portal handoff also available as fallback.",
+    why: "Navigator holds certified assister credential and beneficiary authorization is verified. No public API available for Oklahoma. Consumer portal handoff also available as fallback.",
     automationAllowed: false,
     humanRequired: true,
     fallback: "L1 — Consumer portal handoff",
@@ -132,7 +132,7 @@ const ROSA_CASE = {
     raw: null,
     canonical: null,
     profileVersion: "v2026.09",
-    illustrativeNote: "Maryland portal status strings not yet confirmed from official source. Raw state response will appear here once submission is made and state portal responds.",
+    illustrativeNote: "Oklahoma portal status strings not yet confirmed from official source. Raw state response will appear here once submission is made and state portal responds.",
   },
 
   coverageState: "PENDING_RECONCILIATION",
@@ -549,7 +549,7 @@ function Layer6Status({ c, submitted }) {
             <div style={{ fontSize: 15, fontWeight: 700, color: T.primary }}>{submitted ? "SUBMITTED" : c.canonicalStatus}</div>
           </div>
           <div style={{ background: T.canvas, borderRadius: 9, padding: "10px 12px" }}>
-            <div style={{ fontSize: 10.5, color: T.muted, marginBottom: 4, fontWeight: 700 }}>Maryland state status</div>
+            <div style={{ fontSize: 10.5, color: T.muted, marginBottom: 4, fontWeight: 700 }}>Oklahoma state status</div>
             <div style={{ fontSize: 13, fontWeight: 700, color: T.muted }}>{submitted ? "Awaiting response…" : "Not yet received"}</div>
           </div>
           <div style={{ background: T.canvas, borderRadius: 9, padding: "10px 12px" }}>
@@ -575,11 +575,11 @@ function Layer6Status({ c, submitted }) {
             <div style={{ fontWeight: 700, color: T.navy, marginBottom: 6 }}>Status normalization — MySoonerCare / OHCA</div>
             <div style={{ marginBottom: 4 }}>Raw state status: <span style={{ color: T.muted }}>No response yet</span></div>
             <div style={{ marginBottom: 4 }}>CoverageGuard canonical: <span style={{ fontWeight: 700, color: T.primary }}>{submitted ? "SUBMITTED" : "READY_TO_SUBMIT"}</span></div>
-            <div style={{ marginBottom: 4 }}>Mapped using: Maryland State Profile {c.stateProfile.version}</div>
+            <div style={{ marginBottom: 4 }}>Mapped using: Oklahoma State Profile {c.stateProfile.version}</div>
             <div style={{ marginTop: 8, padding: "7px 10px", background: T.bgAmber, borderRadius: 7, color: T.amber, fontSize: 11.5, lineHeight: 1.5 }}>
-              ⚠ Illustrative note: MySoonerCare / OHCA portal status strings (e.g. "Pending Review", "Document Not Accepted") have not yet been confirmed from an official state source. Status mapping will be populated once Maryland returns a documented response. CoverageGuard will never infer acceptance from silence.
+              ⚠ Illustrative note: MySoonerCare / OHCA portal status strings (e.g. "Pending Review", "Document Not Accepted") have not yet been confirmed from an official state source. Status mapping will be populated once Oklahoma returns a documented response. CoverageGuard will never infer acceptance from silence.
             </div>
-            <div style={{ marginTop: 8, fontSize: 11, color: T.muted }}>Once Maryland responds, this panel will show: raw status → canonical status → mapping rule used → profile version → timestamp.</div>
+            <div style={{ marginTop: 8, fontSize: 11, color: T.muted }}>Once Oklahoma responds, this panel will show: raw status → canonical status → mapping rule used → profile version → timestamp.</div>
           </div>
         )}
       </div>

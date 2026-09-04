@@ -110,7 +110,7 @@ function makeSDOH(rng) {
   return { emp, housing: dom.housing, food: dom.food, transportation: dom.transportation, financial: dom.financial, monthsAgo, recencyMonths: monthsAgo, recordedDate, recencyW: rec.w, recencyStatus: rec.status, burden: clamp(raw * rec.w) };
 }
 
-// H.R. 1 / Maryland work-requirement constants
+// H.R. 1 / Oklahoma work-requirement constants
 const WR_STATUS = {
   exempt: { label: "Exempt", c: "#6B7A70" },
   compliant: { label: "Compliant", c: "#34A56A" },
@@ -118,7 +118,7 @@ const WR_STATUS = {
   at_risk: { label: "At risk", c: "#C8472E" },
 };
 const MHC = {
-  checkin: "marylandhealthconnection.gov/checkin",
+  checkin: "oklahoma.gov/ohca",
   workReqHours: 80, workReqIncome: 580,   // federal minimum wage x 80 hrs — federal wage is the exclusive baseline
   // VERIFIED against primary sources
   citation: "CMS-2454-IFC \u00b7 91 FR 33348 \u00b7 issued June 1, published June 3, 2026",
@@ -135,7 +135,7 @@ const MHC = {
 /* ── White-label config ── */
 const CFG = {
   brand: "CoverageGuard",
-  state: "Maryland",
+  state: "Oklahoma",
   product: "CertCore",
   startingTier: 1,
   startingView: "command",
@@ -1319,7 +1319,7 @@ function Sidebar({ view, setView, narrow, badges = {}, visibleNav: navItems = NA
         <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
           <span style={{ width: 30, height: 30, borderRadius: 9, background: `linear-gradient(135deg, ${T.teal}, ${T.indigo})`, display: "grid", placeItems: "center", color: "#fff" }}><ShieldCheck size={17} /></span>
           <div>
-            <div style={{ fontSize: 14.5, fontWeight: 800, letterSpacing: .2 }}>CoverageGuard <span style={{ color: T.teal }}>IQ</span> Maryland</div>
+            <div style={{ fontSize: 14.5, fontWeight: 800, letterSpacing: .2 }}>CoverageGuard <span style={{ color: T.teal }}>IQ</span> Oklahoma</div>
             <div style={{ fontSize: 10, color: T.textInv, letterSpacing: .4, marginTop: 1 }}>CERTCORE</div>
           </div>
         </div>
@@ -1947,19 +1947,19 @@ function ReferralQueues({ panel, queues = [], setSelected, setView }) {
 
 
 /* ══════════════════════════════════════════════════════════
-   EXECUTIVE INTEL MVP — Part 1 · compliance / medical director
+   EXECUTIVE INTEL MVP — CertCore · compliance / medical director
    One question: what is my H.R.1 exposure and am I ahead of it?
-   No revenue, no agents, no audit trail — those are Part 2/3.
+   No revenue, no agents, no audit trail — those are Coverage Intelligence / Full Platform.
 ══════════════════════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════════════════════
-   EXECUTIVE INTEL — Part 1 · compliance / medical director
+   EXECUTIVE INTEL — CertCore · compliance / medical director
    One tab: org exposure + H.R.1 impact + consent status
-   No revenue, no ROI, no platform cost — that is Part 2/3
+   No revenue, no ROI, no platform cost — that is Coverage Intelligence / Full Platform
 ══════════════════════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════════════════════
-   CLINICIAN EXEMPTION REVIEW — Part 1 only
+   CLINICIAN EXEMPTION REVIEW — CertCore only
    Built for the clinician, not the navigator.
    Navigator routed the case here and stepped back.
    Clinician's job: confirm both elements or reject.
@@ -2050,7 +2050,7 @@ function ClinExemptionQueue({ queues, panel, decideExemption, pushAudit, addPend
       {dualEligCount > 0 && (
         <div style={{marginBottom:14,padding:"10px 14px",background:T.teal+"10",border:`1px solid ${T.teal+"30"}`,borderRadius:10,fontSize:12.5,color:T.textMid,display:"flex",alignItems:"center",gap:8}}>
           <Info size={13} color={T.teal}/>
-          <span><strong style={{color:T.teal,fontWeight:700}}>{dualEligCount} dual eligible</strong> patient{dualEligCount>1?"s":""} are auto-exempt from work requirement — Medicare + Medicaid both active · no clinician attestation required · categorically exempt by Maryland HealthChoice policy</span>
+          <span><strong style={{color:T.teal,fontWeight:700}}>{dualEligCount} dual eligible</strong> patient{dualEligCount>1?"s":""} are auto-exempt from work requirement — Medicare + Medicaid both active · no clinician attestation required · categorically exempt by SoonerCare policy</span>
         </div>
       )}
 
@@ -2468,7 +2468,7 @@ function ExecIntelP1({ panel, recerts, impact, assumptions }) {
               </div>
               <span style={{fontSize:11,fontWeight:700,background:T.green+"15",color:T.green,border:`1px solid ${T.green}33`,borderRadius:999,padding:"2px 9px",display:"flex",alignItems:"center",gap:4}}><span style={{width:6,height:6,borderRadius:999,background:T.green,display:"inline-block"}}></span>Live · eCW + MHC</span>
             </div>
-            <div style={{fontSize:11.5,color:T.textMid,marginBottom:16}}>Actual outcomes from {CFG.brand} · eClinicalWorks + Maryland Health Connection · {effectiveStart} to {effectiveEnd} · {fmt(fin.processed)} renewals processed</div>
+            <div style={{fontSize:11.5,color:T.textMid,marginBottom:16}}>Actual outcomes from {CFG.brand} · eClinicalWorks + Oklahoma Health Care Authority · {effectiveStart} to {effectiveEnd} · {fmt(fin.processed)} renewals processed</div>
             <div style={{display:"grid",gridTemplateColumns:"minmax(0,1fr) minmax(0,1.15fr)",gap:18}}>
               <div>
                 <div style={{display:"flex",alignItems:"baseline",gap:10}}>
@@ -3006,7 +3006,7 @@ function ExecIntelP1({ panel, recerts, impact, assumptions }) {
                 `Patient responds → intake complete: Same day – 2 days`,
                 `Intake complete → docs received:    3–10 days (varies by doc type)`,
                 `Docs received → submitted to State: 1–2 days (auth rep filing)`,
-                `Submitted → State determination:    15–45 days (Maryland MHC)`,
+                `Submitted → State determination:    15–45 days (SoonerCare)`,
                 `RFI issued → cure resolved:         1–10 days (statutory deadline)`,
                 ``,
                 `── END-TO-END CYCLE TIME (season to date) ──────`,
@@ -3494,7 +3494,7 @@ function PatientQueue({ panel, setSelected, queues = [], consentByMrn = {}, rece
   };
 
   const issuePills = (p) => {
-    // PART1: conflict codes (COV-XXX), pharmacy, RCM, care pills suppressed → Part 2
+    // PART1: conflict codes (COV-XXX), pharmacy, RCM, care pills suppressed → Coverage Intelligence
     const pills = [];
     if (p.dualEligible) pills.push(<Badge key="de" c={T.teal} bg={T.teal+"15"}>Medicare primary</Badge>);
     const qs = queueMap[p.mrn] || [];
@@ -4311,7 +4311,7 @@ function IntakeFlow({ p, consent, step, setStep, onClose, onDone }) {
           {consentPath==="self"&&(
             <div style={{padding:"12px 14px",background:T.surface2,border:`1px solid ${T.border}`,borderRadius:10}}>
               <div style={{fontSize:13,fontWeight:800,color:T.text,marginBottom:5}}>Declination logged</div>
-              <div style={{fontSize:12.5,color:T.textMid,lineHeight:1.6,marginBottom:8}}>Patient will self-submit at <b>marylandhealthconnection.gov/checkin</b>. Follow-up set 14 days before renewal deadline.</div>
+              <div style={{fontSize:12.5,color:T.textMid,lineHeight:1.6,marginBottom:8}}>Patient will self-submit at <b>oklahoma.gov/ohca</b>. Follow-up set 14 days before renewal deadline.</div>
               <div style={{fontSize:11.5,padding:"8px 10px",background:T.amber+"12",border:`1px solid ${T.amber}44`,borderRadius:8,color:T.amber}}>If no confirmation received by follow-up date, patient returns to Patient Queue as "Declined — unverified."</div>
             </div>
           )}
@@ -4345,7 +4345,7 @@ function IntakeFlow({ p, consent, step, setStep, onClose, onDone }) {
 
         {/* ── STEP 4: REVIEW + SUBMIT ── */}
         {step===4 && (<>
-          <div style={{fontSize:12.5,color:T.textMid,lineHeight:1.5}}>Auth-rep packet assembled. Review before sending to Maryland Health Connection.</div>
+          <div style={{fontSize:12.5,color:T.textMid,lineHeight:1.5}}>Auth-rep packet assembled. Review before sending to Oklahoma Health Care Authority.</div>
           <div style={{background:T.surface,border:`1px solid ${T.border}`,borderRadius:10,padding:"12px 14px"}}>
             <div style={{fontSize:12,fontWeight:800,color:T.text,marginBottom:10}}>Packet contents</div>
             {[
@@ -4371,7 +4371,7 @@ function IntakeFlow({ p, consent, step, setStep, onClose, onDone }) {
           <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
             <button style={{...ghostBtn,padding:"8px 13px",fontSize:12.5}}>Save and finish later</button>
             <button onClick={onDone} style={{...primaryBtn,padding:"8px 16px",fontSize:12.5,background:T.teal,flex:1,justifyContent:"center"}}>
-              <Send size={14}/> Submit to Maryland Health Connection
+              <Send size={14}/> Submit to Oklahoma Health Care Authority
             </button>
           </div>
           <div style={{fontSize:11,color:T.textLo,lineHeight:1.5}}>Submission logged · confirmation number recorded · patient notified via SMS</div>
@@ -4657,7 +4657,7 @@ function PatientDrawer({ p, onClose, setView, onRoute, viewerRole, consent: cons
         </div>
         <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
 
-          {/* ── SECTION 1: RENEWAL STATUS CARD (Part 1 — conflict resolution in Part 2) ── */}
+          {/* ── SECTION 1: RENEWAL STATUS CARD (CertCore — conflict resolution in Coverage Intelligence) ── */}
           {(() => {
             const daysLeft = p.renewalDays;
             const isOverdue = daysLeft < 0;
@@ -4927,7 +4927,7 @@ function PatientDrawer({ p, onClose, setView, onRoute, viewerRole, consent: cons
                     {consentPath==="self" && (
                       <div style={{padding:"13px 14px",background:T.surface2,border:`1px solid ${T.border}`,borderRadius:10,marginBottom:14}}>
                         <div style={{fontSize:13,fontWeight:800,color:T.text,marginBottom:6}}>Declination logged</div>
-                        <div style={{fontSize:12.5,color:T.textMid,lineHeight:1.6,marginBottom:10}}>Patient will self-submit at <b>marylandhealthconnection.gov/checkin</b>. A follow-up reminder will be set 14 days before their renewal deadline.</div>
+                        <div style={{fontSize:12.5,color:T.textMid,lineHeight:1.6,marginBottom:10}}>Patient will self-submit at <b>oklahoma.gov/ohca</b>. A follow-up reminder will be set 14 days before their renewal deadline.</div>
                         <div style={{fontSize:11.5,padding:"8px 10px",background:T.amber+"12",border:`1px solid ${T.amber}44`,borderRadius:8,color:T.amber}}>
                           If no confirmation received by follow-up date, patient returns to Patient Queue as "Declined — unverified."
                         </div>
@@ -4988,7 +4988,7 @@ function PatientDrawer({ p, onClose, setView, onRoute, viewerRole, consent: cons
                   <AlertTriangle size={14} color={T.red} style={{flexShrink:0,marginTop:2}}/>
                   <div>
                     <div style={{fontSize:12,fontWeight:800,color:T.red,marginBottom:2}}>BEACON ex parte check — no wage record found</div>
-                    <div style={{fontSize:11.5,color:T.textMid,lineHeight:1.5}}>Maryland DLLR wage records: no employer match for {p.first} {p.last} (past 4 quarters). SNAP/TANF: not enrolled. SSA: no benefit record. Member must self-document activity.</div>
+                    <div style={{fontSize:11.5,color:T.textMid,lineHeight:1.5}}>OESC wage records: no employer match for {p.first} {p.last} (past 4 quarters). SNAP/TANF: not enrolled. SSA: no benefit record. Member must self-document activity.</div>
                   </div>
                 </div>
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:14}}>
@@ -5262,7 +5262,7 @@ function ConflictsView({ panel, setSelected }) {
 /* ============================================================
    VIEWS · downstream modules (all keyed off the reconciled coverage state)
    ============================================================ */
-const MCOS = ["Priority Partners", "Maryland Physicians Care", "MedStar Family Choice", "UnitedHealthcare Community", "Wellpoint (Amerigroup)", "Aetna Better Health", "Jai Medical Systems", "CareFirst Community"];
+const MCOS = ["Priority Partners", "Oklahoma Complete Health", "MedStar Family Choice", "UnitedHealthcare Community", "Wellpoint (Amerigroup)", "Aetna Better Health", "Jai Medical Systems", "CareFirst Community"];
 const mcoOf = (p) => MCOS[p.idx % MCOS.length];
 const mcoNew = (p) => MCOS[(p.idx + 3) % MCOS.length];
 const CARE_GAP = {
@@ -5738,7 +5738,7 @@ function DataSourceHealthView({ panel }) {
     ["Availity 835 / 277 — claims & denials", "SFTP mailbox · ERA / status", "Today", "Active", T.green, "\u2014"],
     ["CRISP Medicaid Redetermination File", "CRISP MFT · pipe-delimited .csv", mm + "/28", "Received", T.green, "Ingested"],
     ["eCW / Snowflake — coverage snapshot", "Snowflake extract + eCW API/FHIR", "Today 02:14", "Active", T.green, "Refreshed"],
-    ["ScriptPro rejects — in-house Snowflake", "Nightly report export (Snowflake)", "Today", "Active", T.green, "\u2014"],
+    ["Pharmacy Management System rejects — in-house Snowflake", "Nightly report export (Snowflake)", "Today", "Active", T.green, "\u2014"],
     ["MCO roster (834)", "Direct from MCO (per plan)", "06/01", "Stale", T.orange, "Request updated file"],
   ];
   const kv = [
@@ -6096,9 +6096,9 @@ function AuditView({ audit, panel }) {
               <div style={{ display: "flex", gap: 8 }}><Lock size={14} color={T.teal} style={{ flex: "0 0 auto", marginTop: 1 }} /> Synthetic data only until BAA-covered Azure environment is live.</div>
             </div>
           </Card>
-          <Card title="Complements Maryland Health Connection" sub="Never duplicates or impersonates the State">
+          <Card title="Complements Oklahoma Health Care Authority" sub="Never duplicates or impersonates the State">
             <div style={{ fontSize: 12.5, color: T.textMid, lineHeight: 1.6 }}>
-              <div style={{ display: "flex", gap: 8, marginBottom: 7 }}><CheckCircle2 size={14} color={T.green} style={{ flex: "0 0 auto", marginTop: 1 }} /> Outreach points members to the official check-in at <b>{MHC.checkin}</b> and their Maryland Health Connection notice.</div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 7 }}><CheckCircle2 size={14} color={T.green} style={{ flex: "0 0 auto", marginTop: 1 }} /> Outreach points members to the official check-in at <b>{MHC.checkin}</b> and their Oklahoma Health Care Authority notice.</div>
               <div style={{ display: "flex", gap: 8, marginBottom: 7 }}><CheckCircle2 size={14} color={T.green} style={{ flex: "0 0 auto", marginTop: 1 }} /> Messages identify as the health center — never as the State or its agencies.</div>
               <div style={{ display: "flex", gap: 8 }}><CheckCircle2 size={14} color={T.green} style={{ flex: "0 0 auto", marginTop: 1 }} /> Timed around the State's member-notification deadline of {MHC.notifyDeadline} and the {MHC.goLive} start — reinforcing, not competing with, official communications.</div>
             </div>
@@ -6215,7 +6215,7 @@ function IntakeView({ reduced, onComplete = () => {}, setView = () => {} }) {
     }
     if (state === "CONSENT_CHECK") {
       const lang = /espa|sí|si/i.test(text) ? "es" : "en"; setPlang(lang === "es" ? "Spanish" : "English"); setState("AUTH_REP"); addRecord("patient_responses", `Consent confirmed · language=${lang}`); log("patient_eligibility_agent", "consent.confirmed", `language=${lang}`);
-      return setTimeout(() => agentSay("Maryland's new rules let you name the health center as your authorized representative, so we can submit your paperwork and receive the State's notices for you. Want the health center to represent you? Reply 1 = yes, the health center can help; 2 = no, I'll do it myself.", "auth_rep", C("AUTH_REP", { state: "AUTH_REP", preferred_language: lang })), reduced ? 0 : 200);
+      return setTimeout(() => agentSay("Oklahoma's new rules let you name the health center as your authorized representative, so we can submit your paperwork and receive the State's notices for you. Want the health center to represent you? Reply 1 = yes, the health center can help; 2 = no, I'll do it myself.", "auth_rep", C("AUTH_REP", { state: "AUTH_REP", preferred_language: lang })), reduced ? 0 : 200);
     }
     if (state === "AUTH_REP") {
       const grant = !/\b(2|no|myself|self)\b/i.test(text); const status = grant ? "granted" : "declined"; setAuthRep(status); setState("EMPLOYMENT_INTAKE");
@@ -6462,7 +6462,7 @@ function IBubble({ m }) {
 const REQUIRED_DOCS = [
   { key: "income", name: "Proof of income (paystubs / employer letter)" },
   { key: "id", name: "Photo ID" },
-  { key: "residency", name: "Proof of Maryland residency" },
+  { key: "residency", name: "Proof of Oklahoma residency" },
   { key: "household", name: "Household / dependents verification" },
   { key: "status", name: "Citizenship / immigration status" },
 ];
@@ -6506,7 +6506,7 @@ const SUBMIT_CHANNELS = ["MHC online portal", "MHC phone", "LDSS (Local Departme
 const AR_SCOPE = [
   { key: "submit", label: "Submit application, renewal & recertification" },
   { key: "notices", label: "Receive the State's notices on the patient's behalf" },
-  { key: "comm", label: "Communicate with Maryland Health Connection / LDSS (Local Department of Social Services)" },
+  { key: "comm", label: "Communicate with Oklahoma Health Care Authority / LDSS (Local Department of Social Services)" },
   { key: "workreq", label: "Report H.R. 1 activity hours / exemption" },
 ];
 const AR_METHODS = ["Patient SMS reply (e-consent)", "Portal e-signature", "Recorded telephonic signature", "Verbal — staff attested", "Signed paper form (CG-AR-01)"];
@@ -7015,20 +7015,20 @@ function WREngagementQueue({ panel, addPending, pushAudit }) {
 
   const PATHWAYS = [
     { key:"employment",  label:"Employment / gig work",   sub:"Log weekly hours · pay stubs or app records",         resource:"https://www.dol.gov" },
-    { key:"training",    label:"Job training / SNAP E&T", sub:"Maryland SNAP Employment & Training program",          resource:"https://dhs.maryland.gov" },
+    { key:"training",    label:"Job training / SNAP E&T", sub:"Oklahoma SNAP Employment & Training program",          resource:"https://oklahoma.gov/okdhs" },
     { key:"education",   label:"GED / community college", sub:"Education and vocational training qualify",            resource:"https://www.mhec.maryland.gov" },
-    { key:"caregiving",  label:"Caregiving",              sub:"Caring for a dependent child or disabled adult",       resource:"https://dhs.maryland.gov" },
+    { key:"caregiving",  label:"Caregiving",              sub:"Caring for a dependent child or disabled adult",       resource:"https://oklahoma.gov/okdhs" },
     { key:"volunteer",   label:"Volunteer work",          sub:"Nonprofit, faith-based, or community organization",    resource:"https://www.volunteermaryland.org" },
     { key:"jobcenter",   label:"MD American Job Center",  sub:"Free job placement and training services",             resource:"https://www.careeronestop.org" },
   ];
 
   const SMS_TEMPLATES = {
     employment:  "Hi [name], your Medicaid requires 80 hrs/month of work or qualifying activity. It looks like you do gig/rideshare work — that counts! We can help you document it. Reply 1 to learn how.",
-    training:    "Hi [name], your Medicaid has an 80-hr/month activity requirement. Job training and education programs qualify. Maryland SNAP E&T can help — reply 1 for a free referral.",
+    training:    "Hi [name], your Medicaid has an 80-hr/month activity requirement. Job training and education programs qualify. Oklahoma SNAP E&T can help — reply 1 for a free referral.",
     education:   "Hi [name], did you know GED classes and community college count toward your Medicaid activity requirement? Reply 1 and we'll send you qualifying program info.",
     caregiving:  "Hi [name], caring for a child or disabled family member qualifies for your Medicaid activity requirement. Reply 1 and we can help you document your caregiving hours.",
     volunteer:   "Hi [name], volunteer work at a nonprofit or faith organization qualifies for your Medicaid activity requirement. Reply 1 for a list of qualifying programs near you.",
-    jobcenter:   "Hi [name], Maryland's American Job Centers offer free help finding work — and connecting to jobs counts toward your Medicaid requirement. Reply 1 to get connected.",
+    jobcenter:   "Hi [name], Oklahoma's American Job Centers offer free help finding work — and connecting to jobs counts toward your Medicaid requirement. Reply 1 to get connected.",
     default:     "Hi [name], your Medicaid coverage requires 80 hrs/month of qualifying activity — this includes work, training, volunteering, or caregiving. Reply 1 to learn more, 2 if you're already doing this.",
   };
 
@@ -8173,12 +8173,12 @@ function RecertDrawer({ c, onClose, panel, recertSetDoc, recertAssign, recertAdv
                     </div>
                     <div style={{marginBottom:10}}>
                       <div style={{fontSize:11,fontWeight:700,color:T.textMid,textTransform:"uppercase",letterSpacing:.3,marginBottom:5}}>Reason</div>
-                      <textarea value={detail} onChange={e=>setDetail(e.target.value)} placeholder="Income over limit, no longer Maryland resident, citizenship status, etc."
+                      <textarea value={detail} onChange={e=>setDetail(e.target.value)} placeholder="Income over limit, no longer Oklahoma resident, citizenship status, etc."
                         style={{width:"100%",boxSizing:"border-box",minHeight:52,resize:"vertical",border:`1px solid ${T.border}`,borderRadius:7,padding:"7px 9px",fontSize:12,fontFamily:"inherit",color:T.text,background:T.surface,outline:"none"}}/>
                     </div>
                     <div style={{background:T.red+"0C",border:`1px solid ${T.red}33`,borderRadius:9,padding:"9px 12px",fontSize:12,color:T.textMid,marginBottom:14}}>
                       <div style={{fontWeight:700,color:T.red,marginBottom:3}}>Appeal rights</div>
-                      Patient has 90 days to appeal from the notice date. Refer to Maryland Health Connection for Marketplace / Family Planning alternatives.
+                      Patient has 90 days to appeal from the notice date. Refer to Oklahoma Health Care Authority for Marketplace / Family Planning alternatives.
                     </div>
                     <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
                       <button onClick={()=>setShowDetModal(false)} style={{...ghostBtn,padding:"8px 13px"}}>Cancel</button>
@@ -8251,7 +8251,7 @@ function RecertDrawer({ c, onClose, panel, recertSetDoc, recertAssign, recertAdv
                   <div style={{fontSize:12.5,color:T.textMid,background:T.surface2,border:`1px solid ${T.border}`,borderRadius:10,padding:"12px",lineHeight:1.5}}>
                     <div style={{fontWeight:800,color:T.red,display:"flex",alignItems:"center",gap:7,marginBottom:4}}><X size={16}/> Closed — Ineligible</div>
                     {c.pendingItem&&<div style={{marginBottom:4}}>Reason: {c.pendingItem}</div>}
-                    Appeal rights attach — 90 days from notice date. Refer to Maryland Health Connection for Marketplace / Family Planning options.
+                    Appeal rights attach — 90 days from notice date. Refer to Oklahoma Health Care Authority for Marketplace / Family Planning options.
                   </div>
                 )}
               </div>
@@ -8268,7 +8268,7 @@ function RecertDrawer({ c, onClose, panel, recertSetDoc, recertAssign, recertAdv
    ============================================================ */
 const DOC_LIB = {
   id: "Photo ID",
-  residency: "Proof of Maryland residency",
+  residency: "Proof of Oklahoma residency",
   status: "Citizenship / immigration status",
   household: "Household / dependents verification",
   paystub: "Proof of income (recent paystubs)",
@@ -8339,7 +8339,7 @@ function RecertPerformance({ fin, assumptions = FIN_DEFAULT, onAssumptions }) {
   const editable = typeof onAssumptions === "function";
   const setA = (k, v) => editable && onAssumptions({ ...assumptions, [k]: v });
   return (
-    <Card title={`Recertification performance — ${CFG.brand} · season to date`} sub={`Actual outcomes · eClinicalWorks + Maryland Health Connection · Jun 30 – Aug 22, 2026 · ${fmt(fin.processed)} renewals processed`}>
+    <Card title={`Recertification performance — ${CFG.brand} · season to date`} sub={`Actual outcomes · eClinicalWorks + Oklahoma Health Care Authority · Jun 30 – Aug 22, 2026 · ${fmt(fin.processed)} renewals processed`}>
       <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.15fr)", gap: 18 }}>
         {/* success + outcome bar */}
         <div>
@@ -8422,7 +8422,7 @@ function FinTile({ icon: Icon, tone, label, value, note }) {
 }
 
 /* ============================================================
-   H.R. 1 / Maryland work-requirement readiness
+   H.R. 1 / Oklahoma work-requirement readiness
    ============================================================ */
 function WrPill({ status, small }) {
   const s = WR_STATUS[status] || WR_STATUS.exempt;
@@ -8451,7 +8451,7 @@ function HR1Readiness({ hr1 }) {
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card title="H.R. 1 work-requirement readiness" sub="New Maryland Medicaid rules · 80 hrs/mo activity + 6-month renewals · effective Jan 1, 2027">
+      <Card title="H.R. 1 work-requirement readiness" sub="New Oklahoma Medicaid rules · 80 hrs/mo activity + 6-month renewals · effective Jan 1, 2027">
       <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.05fr)", gap: 18 }}>
         <div>
           <div style={{ display: "flex", height: 12, borderRadius: 99, overflow: "hidden", border: `1px solid ${T.border}` }}>
@@ -8473,7 +8473,7 @@ function HR1Readiness({ hr1 }) {
         </div>
       </div>
       <div style={{ fontSize: 10.5, color: T.textLo, marginTop: 14, borderTop: `1px solid ${T.border}`, paddingTop: 10, lineHeight: 1.5 }}>
-        Source: <b>{MHC.citation}</b>. States must notify members by <b>{MHC.notifyDeadline}</b>; the requirement begins <b>{MHC.goLive}</b>. Outreach complements the State — it points members to the official check-in (<b>{MHC.checkin}</b>) and their notice, and never impersonates Maryland. <b>Under active challenge:</b> {MHC.litigation}. The impairment standard is the central dispute, so thresholds ({MHC.workReqHours} hrs/mo or ${MHC.workReqIncome}/mo) and every rule here remain configurable. Two operational details — a documentation requirement from {MHC.attestationSunset} and {MHC.frailtyReverifyMonths}-month frailty re-verification — are <b>{MHC.pendingNote}</b> and should be confirmed with counsel and MDH before the pilot. Synthetic figures.
+        Source: <b>{MHC.citation}</b>. States must notify members by <b>{MHC.notifyDeadline}</b>; the requirement begins <b>{MHC.goLive}</b>. Outreach complements the State — it points members to the official check-in (<b>{MHC.checkin}</b>) and their notice, and never impersonates Oklahoma. <b>Under active challenge:</b> {MHC.litigation}. The impairment standard is the central dispute, so thresholds ({MHC.workReqHours} hrs/mo or ${MHC.workReqIncome}/mo) and every rule here remain configurable. Two operational details — a documentation requirement from {MHC.attestationSunset} and {MHC.frailtyReverifyMonths}-month frailty re-verification — are <b>{MHC.pendingNote}</b> and should be confirmed with counsel and OHCA before the pilot. Synthetic figures.
       </div>
       </Card>
       <Card title="Qualifying activities & documentation" sub="§ 435.552 — what counts toward 80 hrs/mo (≈20 hrs/wk), or $580/mo MAGI household income. Activities can be combined; ex parte data is checked before the member is asked.">

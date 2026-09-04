@@ -1,10 +1,10 @@
-// PART1_PENDING (after Part 2 P2-009 QC and architect approval):
+// PART1_PENDING (after Coverage Intelligence P2-009 QC and architect approval):
 // 1. buildPanel() \u2014 add dualEligible flag to patient data (Medicare + Medicaid both active)
 // 2. Clinician Exemption Review \u2014 dual eligible = auto-exempt, no attestation needed, distinct badge/label
 // 3. Work engagement queue \u2014 exclude dual eligible patients entirely (already exempt)
 // 4. Patient Queue checklist \u2014 "Medicare primary \u00b7 Medicaid secondary" note in coverage section
 // 5. PART3_BRIDGE \u2014 Coverage Intel dual_eligible \u2192 CertCore auto-confirms exemption when Full platform licensed
-// Do NOT touch Part 1 until Part 2 P2-009 is QC\u2019d and approved by the architect.
+// Do NOT touch CertCore until Coverage Intelligence P2-009 is QC\u2019d and approved by the architect.
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
   LayoutDashboard, Users, Inbox, MessageSquare, Boxes, LineChart as LineIcon,
@@ -117,7 +117,7 @@ function makeSDOH(rng) {
   return { emp, housing: dom.housing, food: dom.food, transportation: dom.transportation, financial: dom.financial, monthsAgo, recencyMonths: monthsAgo, recordedDate, recencyW: rec.w, recencyStatus: rec.status, burden: clamp(raw * rec.w) };
 }
 
-// H.R. 1 / Maryland work-requirement constants
+// H.R. 1 / Oklahoma work-requirement constants
 const WR_STATUS = {
   exempt: { label: "Exempt", c: "#6B7A70" },
   compliant: { label: "Compliant", c: "#34A56A" },
@@ -142,7 +142,7 @@ const MHC = {
 /* ── White-label config ── */
 const CFG = {
   brand: "CoverageGuard IQ",
-  state: "Maryland",
+  state: "Oklahoma",
   product: "Coverage Intelligence",
   startingTier: 2,
   startingView: "command",
@@ -1205,7 +1205,7 @@ function Sidebar({ view, setView, narrow, badges = {}, visibleNav: navItems = NA
         <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
           <span style={{ width: 30, height: 30, borderRadius: 9, background: `linear-gradient(135deg, ${T.teal}, ${T.indigo})`, display: "grid", placeItems: "center", color: "#fff" }}><ShieldCheck size={17} /></span>
           <div>
-            <div style={{ fontSize: 14.5, fontWeight: 800, letterSpacing: .2 }}>CoverageGuard <span style={{ color: T.teal }}>IQ</span> Maryland</div>
+            <div style={{ fontSize: 14.5, fontWeight: 800, letterSpacing: .2 }}>CoverageGuard <span style={{ color: T.teal }}>IQ</span> Oklahoma</div>
             <div style={{ fontSize: 10, color: T.textInvLo, letterSpacing: .4, marginTop: 1 }}>COVERAGE INTELLIGENCE</div>
           </div>
         </div>
@@ -3010,7 +3010,7 @@ function ConflictsView({ panel, routeToQueue }) {
 /* ============================================================
    VIEWS · downstream modules (all keyed off the reconciled coverage state)
    ============================================================ */
-const MCOS = ["Priority Partners", "Maryland Physicians Care", "MedStar Family Choice", "UnitedHealthcare Community", "Wellpoint (Amerigroup)", "Aetna Better Health", "Jai Medical Systems", "CareFirst Community"];
+const MCOS = ["SoonerCare Choice", "UnitedHealthcare Community", "Humana Healthy Horizons", "Blue Cross Blue Shield OK", "Aetna Better Health", "Oklahoma Complete Health", "CommunityCare", "GlobalHealth"];
 const mcoOf = (p) => MCOS[p.idx % MCOS.length];
 const mcoNew = (p) => MCOS[(p.idx + 3) % MCOS.length];
 const CARE_GAP = {
@@ -3109,7 +3109,7 @@ const MCO_PHONES = {
   "UnitedHealthcare Community":     "(800) 903-5253",
   "Priority Partners":              "(800) 654-9728",
   "MedStar Family Choice":          "(800) 261-3371",
-  "Maryland Physicians Care":       "(800) 953-8854",
+  "State Medicaid Plan":       "(800) 953-8854",
   "Aetna Better Health":            "(866) 444-5359",
   "Jai Medical Systems":            "(888) 524-1999",
 };
@@ -4030,7 +4030,7 @@ function PharmacyQueueView({ pharmacyCases, setPharmacyCases, sessionLog, addSes
               <option value="">— select —</option>
               <option>Notified recert team — manual</option>
               <option>Flagged in navigator notes</option>
-              <option>Routed to CertCore (Part 3)</option>
+              <option>Routed to CertCore (Full Platform)</option>
               <option>Other</option>
             </select>
             {actionLapse==="Other" && <OtherField value={otherActionLapse} onChange={setOtherActionLapse}/>}
@@ -4039,7 +4039,7 @@ function PharmacyQueueView({ pharmacyCases, setPharmacyCases, sessionLog, addSes
               style={{ width:"100%", border:`1px solid ${T.border}`, borderRadius:7, padding:"7px 9px", fontSize:12, color:T.text, background:T.surface, marginBottom:4, outline:"none" }}>
               <option value="">— select —</option>
               <option>Recert team notified</option>
-              <option>Routed to CertCore (Part 3)</option>
+              <option>Routed to CertCore (Full Platform)</option>
               <option>Coverage reinstated — no action needed</option>
               <option>Other</option>
             </select>
@@ -5384,7 +5384,7 @@ function DataSourceHealthView({ panel }) {
     ["Availity 835 / 277 — claims & denials", "SFTP mailbox · ERA / status", "Today", "Active", T.green, "\u2014"],
     ["CRISP Medicaid Redetermination File", "CRISP MFT · pipe-delimited .csv", mm + "/28", "Received", T.green, "Ingested"],
     ["eCW / Snowflake — coverage snapshot", "Snowflake extract + eCW API/FHIR", "Today 02:14", "Active", T.green, "Refreshed"],
-    ["ScriptPro rejects — in-house Snowflake", "Nightly report export (Snowflake)", "Today", "Active", T.green, "\u2014"],
+    ["Pharmacy Management System rejects — in-house Snowflake", "Nightly report export (Snowflake)", "Today", "Active", T.green, "\u2014"],
     ["MCO roster (834)", "Direct from MCO (per plan)", "06/01", "Stale", T.orange, "Request updated file"],
   ];
   const kv = [
@@ -5719,9 +5719,9 @@ function AuditView({ audit, panel }) {
               <div style={{ display: "flex", gap: 8 }}><Lock size={14} color={T.teal} style={{ flex: "0 0 auto", marginTop: 1 }} /> Synthetic data only until BAA-covered Azure environment is live.</div>
             </div>
           </Card>
-          <Card title="Complements Maryland Health Connection" sub="Never duplicates or impersonates the State">
+          <Card title="Complements Oklahoma Health Care Authority" sub="Never duplicates or impersonates the State">
             <div style={{ fontSize: 12.5, color: T.textMid, lineHeight: 1.6 }}>
-              <div style={{ display: "flex", gap: 8, marginBottom: 7 }}><CheckCircle2 size={14} color={T.green} style={{ flex: "0 0 auto", marginTop: 1 }} /> Outreach points members to the official check-in at <b>{MHC.checkin}</b> and their Maryland Health Connection notice.</div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 7 }}><CheckCircle2 size={14} color={T.green} style={{ flex: "0 0 auto", marginTop: 1 }} /> Outreach points members to the official check-in at <b>{MHC.checkin}</b> and their Oklahoma Health Care Authority notice.</div>
               <div style={{ display: "flex", gap: 8, marginBottom: 7 }}><CheckCircle2 size={14} color={T.green} style={{ flex: "0 0 auto", marginTop: 1 }} /> Messages identify as the health center — never as the State or its agencies.</div>
               <div style={{ display: "flex", gap: 8 }}><CheckCircle2 size={14} color={T.green} style={{ flex: "0 0 auto", marginTop: 1 }} /> Timed around the State's member-notification deadline of {MHC.notifyDeadline} and the {MHC.goLive} start — reinforcing, not competing with, official communications.</div>
             </div>
@@ -5838,7 +5838,7 @@ function IntakeView({ reduced, onComplete = () => {}, setView = () => {} }) {
     }
     if (state === "CONSENT_CHECK") {
       const lang = /espa|sí|si/i.test(text) ? "es" : "en"; setPlang(lang === "es" ? "Spanish" : "English"); setState("AUTH_REP"); addRecord("patient_responses", `Consent confirmed · language=${lang}`); log("patient_eligibility_agent", "consent.confirmed", `language=${lang}`);
-      return setTimeout(() => agentSay("Maryland's new rules let you name the health center as your authorized representative, so we can submit your paperwork and receive the State's notices for you. Want the health center to represent you? Reply 1 = yes, the health center can help; 2 = no, I'll do it myself.", "auth_rep", C("AUTH_REP", { state: "AUTH_REP", preferred_language: lang })), reduced ? 0 : 200);
+      return setTimeout(() => agentSay("Oklahoma's new rules let you name the health center as your authorized representative, so we can submit your paperwork and receive the State's notices for you. Want the health center to represent you? Reply 1 = yes, the health center can help; 2 = no, I'll do it myself.", "auth_rep", C("AUTH_REP", { state: "AUTH_REP", preferred_language: lang })), reduced ? 0 : 200);
     }
     if (state === "AUTH_REP") {
       const grant = !/\b(2|no|myself|self)\b/i.test(text); const status = grant ? "granted" : "declined"; setAuthRep(status); setState("EMPLOYMENT_INTAKE");
@@ -6085,7 +6085,7 @@ function IBubble({ m }) {
 const REQUIRED_DOCS = [
   { key: "income", name: "Proof of income (paystubs / employer letter)" },
   { key: "id", name: "Photo ID" },
-  { key: "residency", name: "Proof of Maryland residency" },
+  { key: "residency", name: "Proof of Oklahoma residency" },
   { key: "household", name: "Household / dependents verification" },
   { key: "status", name: "Citizenship / immigration status" },
 ];
@@ -6128,7 +6128,7 @@ const SUBMIT_CHANNELS = ["MHC online portal", "MHC phone", "LDSS (Local Departme
 const AR_SCOPE = [
   { key: "submit", label: "Submit application, renewal & recertification" },
   { key: "notices", label: "Receive the State's notices on the patient's behalf" },
-  { key: "comm", label: "Communicate with Maryland Health Connection / LDSS (Local Department of Social Services)" },
+  { key: "comm", label: "Communicate with Oklahoma Health Care Authority / LDSS (Local Department of Social Services)" },
   { key: "workreq", label: "Report H.R. 1 activity hours / exemption" },
 ];
 const AR_METHODS = ["Patient SMS reply (e-consent)", "Portal e-signature", "Recorded telephonic signature", "Verbal — staff attested", "Signed paper form (CG-AR-01)"];
@@ -6700,7 +6700,7 @@ function RecertDrawer({ c, onClose, recertSetDoc, recertAssign, recertAdvance, r
             {c.stage === "recertified" && (
               <div>
                 {c.outcome === "approved" && <div style={{ fontSize: 12.5, color: T.green, background: T.green + "12", border: `1px solid ${T.green}33`, borderRadius: 10, padding: "12px", lineHeight: 1.5 }}><div style={{ fontWeight: 800, display: "flex", alignItems: "center", gap: 7 }}><CheckCircle2 size={16} /> Closed — Renewed</div>Coverage confirmed for the new term. The Eligibility Sentinel re-verifies active status on the nightly sweep.</div>}
-                {c.outcome === "denied_ineligible" && <div style={{ fontSize: 12.5, color: T.textMid, background: T.surface2, border: `1px solid ${T.border}`, borderRadius: 10, padding: "12px", lineHeight: 1.5 }}><div style={{ fontWeight: 800, color: T.text, display: "flex", alignItems: "center", gap: 7 }}><X size={16} /> Closed — Ineligible</div>Not a procedural failure. Refer to Maryland Health Connection for Marketplace / Family Planning options.</div>}
+                {c.outcome === "denied_ineligible" && <div style={{ fontSize: 12.5, color: T.textMid, background: T.surface2, border: `1px solid ${T.border}`, borderRadius: 10, padding: "12px", lineHeight: 1.5 }}><div style={{ fontWeight: 800, color: T.text, display: "flex", alignItems: "center", gap: 7 }}><X size={16} /> Closed — Ineligible</div>Not a procedural failure. Refer to Oklahoma Health Care Authority for Marketplace / Family Planning options.</div>}
                 {c.outcome === "pending" && (
                   <div>
                     <div style={{ fontSize: 12.5, color: T.amber, background: T.amber + "12", border: `1px solid ${T.amber}44`, borderRadius: 10, padding: "12px", lineHeight: 1.5, marginBottom: 10 }}><div style={{ fontWeight: 800, display: "flex", alignItems: "center", gap: 7 }}><Clock size={15} /> Pending clarification</div>State requested: {c.pendingItem}</div>
@@ -6721,7 +6721,7 @@ function RecertDrawer({ c, onClose, recertSetDoc, recertAssign, recertAdvance, r
    ============================================================ */
 const DOC_LIB = {
   id: "Photo ID",
-  residency: "Proof of Maryland residency",
+  residency: "Proof of Oklahoma residency",
   status: "Citizenship / immigration status",
   household: "Household / dependents verification",
   paystub: "Proof of income (recent paystubs)",
@@ -6857,7 +6857,7 @@ function FinTile({ icon: Icon, tone, label, value, note }) {
 }
 
 /* ============================================================
-   H.R. 1 / Maryland work-requirement readiness
+   H.R. 1 / Oklahoma work-requirement readiness
    ============================================================ */
 function WrPill({ status, small }) {
   const s = WR_STATUS[status] || WR_STATUS.exempt;
@@ -6886,7 +6886,7 @@ function HR1Readiness({ hr1 }) {
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card title="H.R. 1 work-requirement readiness" sub="New Maryland Medicaid rules · 80 hrs/mo activity + 6-month renewals · effective Jan 1, 2027">
+      <Card title="H.R. 1 work-requirement readiness" sub="New Oklahoma Medicaid rules · 80 hrs/mo activity + 6-month renewals · effective Jan 1, 2027">
       <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.05fr)", gap: 18 }}>
         <div>
           <div style={{ display: "flex", height: 12, borderRadius: 99, overflow: "hidden", border: `1px solid ${T.border}` }}>
@@ -6908,7 +6908,7 @@ function HR1Readiness({ hr1 }) {
         </div>
       </div>
       <div style={{ fontSize: 10.5, color: T.textLo, marginTop: 14, borderTop: `1px solid ${T.border}`, paddingTop: 10, lineHeight: 1.5 }}>
-        Source: <b>{MHC.citation}</b>. States must notify members by <b>{MHC.notifyDeadline}</b>; the requirement begins <b>{MHC.goLive}</b>. Outreach complements the State — it points members to the official check-in (<b>{MHC.checkin}</b>) and their notice, and never impersonates Maryland. <b>Under active challenge:</b> {MHC.litigation}. The impairment standard is the central dispute, so thresholds ({MHC.workReqHours} hrs/mo or ${MHC.workReqIncome}/mo) and every rule here remain configurable. Two operational details — a documentation requirement from {MHC.attestationSunset} and {MHC.frailtyReverifyMonths}-month frailty re-verification — are <b>{MHC.pendingNote}</b> and should be confirmed with counsel and MDH before the pilot. Synthetic figures.
+        Source: <b>{MHC.citation}</b>. States must notify members by <b>{MHC.notifyDeadline}</b>; the requirement begins <b>{MHC.goLive}</b>. Outreach complements the State — it points members to the official check-in (<b>{MHC.checkin}</b>) and their notice, and never impersonates Oklahoma. <b>Under active challenge:</b> {MHC.litigation}. The impairment standard is the central dispute, so thresholds ({MHC.workReqHours} hrs/mo or ${MHC.workReqIncome}/mo) and every rule here remain configurable. Two operational details — a documentation requirement from {MHC.attestationSunset} and {MHC.frailtyReverifyMonths}-month frailty re-verification — are <b>{MHC.pendingNote}</b> and should be confirmed with counsel and OHCA before the pilot. Synthetic figures.
       </div>
       </Card>
       <Card title="Qualifying activities & documentation" sub="§ 435.552 — what counts toward 80 hrs/mo (≈20 hrs/wk), or $580/mo MAGI household income. Activities can be combined; ex parte data is checked before the member is asked.">
