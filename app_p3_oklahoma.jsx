@@ -12,17 +12,8 @@ const PLATFORM_CREDS = {
 };
 
 function LoginGate({ children }) {
-  const [authed, setAuthed] = useState(() => {
-    const ts = sessionStorage.getItem("cg_platform_auth_ts");
-    if (!ts || !sessionStorage.getItem("cg_platform_auth")) return false;
-    if (Date.now() - parseInt(ts, 10) > 24 * 60 * 60 * 1000) {
-      sessionStorage.removeItem("cg_platform_auth");
-      sessionStorage.removeItem("cg_platform_auth_ts");
-      sessionStorage.removeItem("cg_platform_org");
-      return false;
-    }
-    return true;
-  });
+  // Auth gate bypassed for demo — login handled at shell/gateway level
+  const [authed, setAuthed] = useState(true);
   const [org, setOrg] = useState("");
   const [pass, setPass] = useState("");
   const [err, setErr] = useState("");
